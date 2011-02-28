@@ -527,12 +527,12 @@ class Association(object):
 
         @raises ValueError: if the message has no signature or no signature
             can be calculated for it.
-        """        
+        """
         message_sig = message.getArg(OPENID_NS, 'sig')
         if not message_sig:
             raise ValueError("%s has no sig." % (message,))
         calculated_sig = self.getMessageSignature(message)
-        return calculated_sig == message_sig
+        return cryptutil.const_eq(calculated_sig, message_sig)
 
 
     def _makePairs(self, message):
